@@ -28,7 +28,7 @@ async def dispatch(request: Request) -> JSONResponse:
     except AddonVerificationError:
         return JSONResponse(status_code=401, content={"outcome": "dispatch_failed", "message": "bad signature"})
 
-    # STUB — a real addon fills this in (see digipos-addon).
+    # STUB — a real addon fills this in with its own fulfillment logic.
     return JSONResponse(
         status_code=200,
         content={"outcome": "failed_definitive", "message": "dispatch not implemented in starter template"},

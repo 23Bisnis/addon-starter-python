@@ -1,0 +1,29 @@
+schema_version: "2026-05-01"
+addon:
+  slug: my-addon
+  name: My Addon
+  version: 0.1.0
+  developer_id: REPLACE
+  homepage_url: https://example.com
+  support_email: you@example.com
+scopes_required:
+  - supplier.dispatch
+endpoints:
+  dispatch_url: https://your-addon.example.com/dispatch
+  oauth_install_url: https://your-addon.example.com/oauth/install
+  oauth_callback_url: https://your-addon.example.com/oauth/install
+supplier_adapter:
+  capabilities: [dispatch]
+  callback_signature_alg: hmac_sha256
+admin_ui:
+  iframe_url: https://your-addon.example.com/ui
+  pages:
+    - { id: accounts, title: "Accounts", mount: standalone }
+    - { id: mapping,  title: "Product Mapping", mount: standalone }
+    - { id: history,  title: "History", mount: standalone }
+  postmessage_origin: https://your-addon.example.com
+distribution:
+  tier: custom
+  custom_tenant_allowlist: [1]
+billing:
+  model: free

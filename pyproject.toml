@@ -22,3 +22,11 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 include = ["app*"]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore:.*HMAC key.*below the minimum.*:UserWarning",
+    "ignore::DeprecationWarning",
+    "ignore:.*httpx.*starlette.*:UserWarning",
+    "ignore::starlette.exceptions.StarletteDeprecationWarning",
+]

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import pathlib
@@ -14,5 +14,7 @@ _PAGES = {"accounts": "accounts.html", "mapping": "mapping.html", "history": "hi
 
 @router.get("/{page_id}", response_class=HTMLResponse)
 def page(page_id: str, request: Request, ctx: IframeContext = Depends(require_iframe_context)):
-    template = _PAGES.get(page_id, "accounts.html")
+    template = _PAGES.get(page_id)
+    if template is None:
+        raise HTTPException(status_code=404, detail="unknown page")
     return _templates.TemplateResponse(request=request, name=template, context={"ctx": ctx})

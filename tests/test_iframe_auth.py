@@ -40,3 +40,8 @@ def test_iframe_page_renders_with_valid_jwt():
 def test_iframe_page_rejects_missing_jwt():
     r = client.get("/ui/accounts")
     assert r.status_code == 401
+
+
+def test_iframe_unknown_page_404():
+    r = client.get("/ui/does-not-exist", params={"jwt": _token("does-not-exist")})
+    assert r.status_code == 404

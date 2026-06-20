@@ -24,6 +24,9 @@ class InstallRecord:
     scopes: list[str]
 
 
+# NOTE: this SELECT-then-INSERT/UPDATE is not atomic. SQLite serializes writes so it's safe
+# by default. If you switch to Postgres, replace with INSERT ... ON CONFLICT DO UPDATE to
+# avoid a race on concurrent installs of the same install_id.
 def upsert_install(rec: InstallRecord) -> None:
     with engine.begin() as conn:
         exists = conn.execute(
